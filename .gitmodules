@@ -1,0 +1,3 @@
+[submodule "LibAPR-java-wrapper"]
+	path = LibAPR-java-wrapper
+	url = https://github.com/krzysg/LibAPR-java-wrapper.git
