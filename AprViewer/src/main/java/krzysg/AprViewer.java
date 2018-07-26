@@ -70,6 +70,6 @@ public class AprViewer {
 		final SpimDataMinimal spimData = new SpimDataMinimal( basePath, seq, new ViewRegistrations(registrations) );
 
         // ------------ Run BDV ----------------------------------
-        BdvFunctions.show(spimData, Bdv.options().frameTitle("APR viewer"));
+        BdvFunctions.show(spimData, Bdv.options().frameTitle("APR viewer [" + inputFile.getName() + "]"));
     }
 }
