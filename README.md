@@ -14,7 +14,7 @@ mvn pakcage -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
 ```
 * run app
 ```
-./run.sh <your h5 file>
+./run.sh <your APR file>
 ```
 
 ## Output
