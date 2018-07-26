@@ -1,6 +1,6 @@
-# LibAPR-BigDataViewer
+# APR-BigDataViewer
 
-Viewer app that utilize BigDataViewer to show Adaptive Particle Representation (APR) files. Thanks to reconstruction 'on the fly' it allows to open bigger files that memory available on the machine.
+Viewer app that utilize [BigDataViewer](https://github.com/bigdataviewer/bigdataviewer-vistools) and [LibAPR-java-wrapper](https://github.com/krzysg/LibAPR-java-wrapper) to show Adaptive Particle Representation (APR) files. Thanks to reconstruction 'on the fly' it allows to open bigger files that memory available on the machine.
 
 ## How to download and build
 * clone repository
