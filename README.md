@@ -5,7 +5,7 @@ Viewer app that utilize BigDataViewer to show Adaptive Particle Representation (
 ## How to download and build
 * clone repository
 ```
-git clone --recurse https://github.com/krzysg/LibAPR-BigDataViewer
+git clone --recurse https://github.com/krzysg/APR-BigDataViewer.git
 ```
 * build java app
 ```
