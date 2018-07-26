@@ -86,7 +86,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>LibAPR-java-wrapper</module>
-        <module>example</module>
+        <module>AprViewer</module>
     </modules>
 
 

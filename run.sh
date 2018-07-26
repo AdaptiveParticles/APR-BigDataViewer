@@ -1,3 +1,4 @@
 #!/bin/bash
 
- java -cp example/target/appFull-jar-with-dependencies.jar krzysg.OpenAprInBDV
+ java -cp AprViewer/target/AprViewer-jar-with-dependencies.jar krzysg.AprViewer
+
