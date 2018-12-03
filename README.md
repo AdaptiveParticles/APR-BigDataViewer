@@ -5,7 +5,7 @@ Viewer app that utilize [BigDataViewer](https://github.com/bigdataviewer/bigdata
 ## How to download and build
 * clone repository
 ```
-git clone --recurse https://github.com/krzysg/APR-BigDataViewer.git
+git clone --recurse https://github.com/AdaptiveParticles/APR-BigDataViewer.git
 ```
 * build java app
 ```
