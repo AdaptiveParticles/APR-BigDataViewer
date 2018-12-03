@@ -17,6 +17,13 @@ mvn pakcage -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
 ./run.sh <your APR file>
 ```
 
+## Current branches
+### master
+Utilizing single-threaded version of LibAPR java wrapper. Using default available compiler.
+### openmpEnabled
+Using OpenMP version of LibAPR java wrapper. Currently supporting llvm on MacOS, if you need to use different compiler please update CC/CXX/LDFLAGS/CPPFLAGS in submodule file:
+LibAPR-java-wrapper/native/cppbuild.sh
+
 ## Output
 Example visualization:
 ![7GB data set with 4 tiled zebrafishes](doc/screenShot.png/?raw=true)
