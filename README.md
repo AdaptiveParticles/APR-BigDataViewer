@@ -9,7 +9,7 @@ git clone --recurse https://github.com/krzysg/APR-BigDataViewer.git
 ```
 * build java app
 ```
-cd LibAPR-BigDataViewer
+cd APR-BigDataViewer
 mvn pakcage -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
 ```
 * run app
