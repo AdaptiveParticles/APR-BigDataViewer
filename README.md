@@ -10,7 +10,7 @@ git clone --recurse https://github.com/AdaptiveParticles/APR-BigDataViewer.git
 * build java app
 ```
 cd APR-BigDataViewer
-mvn pakcage -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+mvn package -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
 ```
 * run app
 ```
