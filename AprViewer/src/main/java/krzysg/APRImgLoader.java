@@ -58,7 +58,7 @@ public class APRImgLoader implements ViewerImgLoader {
 
         // ------------ Create Img Loader ---------------------------------------------------
         final int setupId = 0;
-        cache = new VolatileGlobalCellCache(numLevels, 6);
+        cache = new VolatileGlobalCellCache(numLevels, 1); //changed from 6
         final APRArrayLoader loader = new APRArrayLoader(apr);
         setupImgLoader = new APRSetupImgLoader(setupId, dimensions, mipmapInfo, cache, loader);
     }
@@ -89,6 +89,12 @@ public class APRImgLoader implements ViewerImgLoader {
 
             if (buffer.get().capacity() < sizeOfReconstructedPatch) {
                 buffer.set(ByteBuffer.allocateDirect(2 * sizeOfReconstructedPatch).order(ByteOrder.nativeOrder()).asShortBuffer());
+            }
+
+            if(timepoint != apr.timePoint()){
+                System.out.println( "Time Point");
+                apr.read(timepoint);
+
             }
 
             // reconstruct APR starting in the begin of buffer
