@@ -41,15 +41,16 @@ public class AprViewer {
 
         // ------------ Load APR ---------------------------------
 		final JavaAPR apr = new JavaAPR();
-		System.out.println( "Loading [" + inputFileName + "]" );
-		apr.read( inputFileName );
-		System.out.println( "Loaded image size (w/h/d): " + apr.width() + "/" + apr.height() + "/" + apr.depth() );
 
 		if (args.length == 2) {
 			//do something special
 			apr.showLevel();
 		}
 
+
+		System.out.println( "Loading [" + inputFileName + "]" );
+		apr.read( inputFileName );
+		System.out.println( "Loaded image size (w/h/d): " + apr.width() + "/" + apr.height() + "/" + apr.depth() );
 
         // ------------ Set BDV stuff ----------------------------
 		final File basePath = inputFile.getParentFile();
@@ -63,15 +64,11 @@ public class AprViewer {
 		}
 
 
-		//apr.read(1);
-
-
-
 		final HashMap< Integer, BasicViewSetup > setupMap = new HashMap<>();
 		final int setupId = 0;
 		setupMap.put( setupId, new BasicViewSetup( setupId, "APR", null, null ) );
 		final int[] cellDimensions = new int[] { 32, 32, 32 };
-		final int numLevels = 3;
+		final int numLevels = 5;
 		final APRImgLoader imgLoader = new APRImgLoader( apr, cellDimensions, numLevels);
 		final SequenceDescriptionMinimal seq = new SequenceDescriptionMinimal( new TimePoints( timepointMap ), setupMap, imgLoader, null );
 

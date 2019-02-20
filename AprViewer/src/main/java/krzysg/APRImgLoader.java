@@ -85,7 +85,7 @@ public class APRImgLoader implements ViewerImgLoader {
 
         @Override
         public VolatileShortArray loadArray(final int timepoint, final int setup, final int level, final int[] dimensions, final long[] min ) throws InterruptedException {
-            final int sizeOfReconstructedPatch = (int) Intervals.numElements(dimensions);
+            int sizeOfReconstructedPatch = (int) Intervals.numElements(dimensions);
 
             if (buffer.get().capacity() < sizeOfReconstructedPatch) {
                 buffer.set(ByteBuffer.allocateDirect(2 * sizeOfReconstructedPatch).order(ByteOrder.nativeOrder()).asShortBuffer());
@@ -97,17 +97,35 @@ public class APRImgLoader implements ViewerImgLoader {
 
             }
 
-            // reconstruct APR starting in the begin of buffer
+            Boolean valid = true;
+
             final ShortBuffer shortBuffer = buffer.get();
             shortBuffer.rewind();
-            apr.reconstructToBuffer(
-                    (int) min[0], (int) min[1], (int) min[2],    // (x,y,z) of start reconstruction
-                    dimensions[0], dimensions[1], dimensions[2], // (width, height, depth) of reconstruction
-                    level, shortBuffer);                         // on which level reconstruction is done and output buffer
 
+            Boolean loadPatch = (level==0);
+            //loadPatch = dimensions[2] > 60;
+
+            if(loadPatch) {
+                valid = false;
+                sizeOfReconstructedPatch=0;
+            } else {
+                // reconstruct APR starting in the begin of buffer
+
+                apr.reconstructToBuffer(
+                        (int) min[0], (int) min[1], (int) min[2],    // (x,y,z) of start reconstruction
+                        dimensions[0], dimensions[1], dimensions[2], // (width, height, depth) of reconstruction
+                        level, shortBuffer);                         // on which level reconstruction is done and output buffer
+
+
+
+            }
+
+            //int l = apr.levelMax();
             final short[] array = new short[sizeOfReconstructedPatch];
+
+
             shortBuffer.get(array, 0, sizeOfReconstructedPatch);
-            return new VolatileShortArray(array, true);
+            return new VolatileShortArray(array, valid);
         }
 
         @Override
