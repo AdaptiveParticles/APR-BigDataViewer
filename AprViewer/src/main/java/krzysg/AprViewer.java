@@ -67,8 +67,8 @@ public class AprViewer {
 		final HashMap< Integer, BasicViewSetup > setupMap = new HashMap<>();
 		final int setupId = 0;
 		setupMap.put( setupId, new BasicViewSetup( setupId, "APR", null, null ) );
-		final int[] cellDimensions = new int[] { 32, 32, 32 };
-		final int numLevels = 5;
+		final int[] cellDimensions = new int[] { 24, 24, 4 };
+		final int numLevels = 3;
 		final APRImgLoader imgLoader = new APRImgLoader( apr, cellDimensions, numLevels);
 		final SequenceDescriptionMinimal seq = new SequenceDescriptionMinimal( new TimePoints( timepointMap ), setupMap, imgLoader, null );
 

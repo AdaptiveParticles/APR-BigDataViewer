@@ -58,7 +58,8 @@ public class APRImgLoader implements ViewerImgLoader {
 
         // ------------ Create Img Loader ---------------------------------------------------
         final int setupId = 0;
-        cache = new VolatileGlobalCellCache(numLevels, 1); //changed from 6
+        final int numberThreads = 10;
+        cache = new VolatileGlobalCellCache(numLevels, numberThreads); //changed from 6
         final APRArrayLoader loader = new APRArrayLoader(apr);
         setupImgLoader = new APRSetupImgLoader(setupId, dimensions, mipmapInfo, cache, loader);
     }
@@ -74,6 +75,8 @@ public class APRImgLoader implements ViewerImgLoader {
     }
 
     private class APRArrayLoader implements CacheArrayLoader< VolatileShortArray > {
+
+        private Boolean loading = false;
         private final JavaAPR apr;
         private final ThreadLocal<ShortBuffer> buffer = ThreadLocal.withInitial(
                 () -> ByteBuffer.allocateDirect(2).order(ByteOrder.nativeOrder()).asShortBuffer());
@@ -84,17 +87,27 @@ public class APRImgLoader implements ViewerImgLoader {
         }
 
         @Override
-        public VolatileShortArray loadArray(final int timepoint, final int setup, final int level, final int[] dimensions, final long[] min ) throws InterruptedException {
+        public synchronized VolatileShortArray loadArray(final int timepoint, final int setup, final int level, final int[] dimensions, final long[] min ) throws InterruptedException {
             int sizeOfReconstructedPatch = (int) Intervals.numElements(dimensions);
 
             if (buffer.get().capacity() < sizeOfReconstructedPatch) {
                 buffer.set(ByteBuffer.allocateDirect(2 * sizeOfReconstructedPatch).order(ByteOrder.nativeOrder()).asShortBuffer());
             }
 
-            if(timepoint != apr.timePoint()){
+            if((timepoint != apr.timePoint()) && !loading){
+
+                loading = true;
                 System.out.println( "Time Point");
                 apr.read(timepoint);
+                loading = false;
+                this.notifyAll();
 
+            }
+
+            while (loading) {
+                try {
+                    this.wait();
+                } catch(InterruptedException e) {}
             }
 
             Boolean valid = true;
@@ -103,6 +116,8 @@ public class APRImgLoader implements ViewerImgLoader {
             shortBuffer.rewind();
 
             Boolean loadPatch = (level==0);
+            loadPatch = false;
+            //loadPatch = false;
             //loadPatch = dimensions[2] > 60;
 
             if(loadPatch) {
