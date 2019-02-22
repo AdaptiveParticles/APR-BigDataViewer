@@ -115,14 +115,14 @@ public class APRImgLoader implements ViewerImgLoader {
             final ShortBuffer shortBuffer = buffer.get();
             shortBuffer.rewind();
 
-            Boolean loadPatch = (level==0);
-            loadPatch = false;
-            //loadPatch = false;
-            //loadPatch = dimensions[2] > 60;
+            int loadPatch = apr.checkReconstructionRequired((int) min[0], (int) min[1], (int) min[2],    // (x,y,z) of start reconstruction
+                    dimensions[0], dimensions[1], dimensions[2], // (width, height, depth) of reconstruction
+                    level);
 
-            if(loadPatch) {
+            if(loadPatch==0) {
                 valid = false;
                 sizeOfReconstructedPatch=0;
+
             } else {
                 // reconstruct APR starting in the begin of buffer
 
@@ -135,7 +135,6 @@ public class APRImgLoader implements ViewerImgLoader {
 
             }
 
-            //int l = apr.levelMax();
             final short[] array = new short[sizeOfReconstructedPatch];
 
 
@@ -172,12 +171,14 @@ public class APRImgLoader implements ViewerImgLoader {
 
         @Override
         public RandomAccessibleInterval< VolatileUnsignedShortType > getVolatileImage( final int timepointId, final int level, final ImgLoaderHint... hints ) {
+            //return prepareCachedImage( timepointId, level, LoadingStrategy.BUDGETED, volatileType );
             return prepareCachedImage( timepointId, level, LoadingStrategy.BUDGETED, volatileType );
         }
 
         protected < T extends NativeType< T >> RandomAccessibleInterval< T > prepareCachedImage(final int timepointId, final int level, final LoadingStrategy loadingStrategy, final T type ) {
             final CellGrid grid = new CellGrid( dimensions[ level ], mipmapInfo.getSubdivisions()[ level ] );
             final int priority = mipmapInfo.getMaxLevel() - level;
+            //final int priority = level;
             final CacheHints cacheHints = new CacheHints( loadingStrategy, priority, false );
             return cache.createImg( grid, timepointId, setupId, level, cacheHints, loader, type );
         }
