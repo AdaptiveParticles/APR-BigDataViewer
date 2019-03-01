@@ -5,17 +5,24 @@ Viewer app that utilize [BigDataViewer](https://github.com/bigdataviewer/bigdata
 ## How to download and build
 * clone repository
 ```
-git clone --recurse https://github.com/krzysg/APR-BigDataViewer.git
+git clone --recurse https://github.com/AdaptiveParticles/APR-BigDataViewer.git
 ```
 * build java app
 ```
-cd LibAPR-BigDataViewer
-mvn pakcage -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+cd APR-BigDataViewer
+mvn package -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
 ```
 * run app
 ```
 ./run.sh <your APR file>
 ```
+
+## Current branches
+### master
+Utilizing single-threaded version of LibAPR java wrapper. Using default available compiler.
+### openmpEnabled
+Using OpenMP version of LibAPR java wrapper. Currently supporting llvm on MacOS, if you need to use different compiler please update CC/CXX/LDFLAGS/CPPFLAGS in submodule file:
+LibAPR-java-wrapper/native/cppbuild.sh
 
 ## Output
 Example visualization:
