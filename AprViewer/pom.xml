@@ -24,7 +24,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>mosaic</groupId>
+            <groupId>adaptiveparticles</groupId>
             <artifactId>libapr-java-wrapper</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>

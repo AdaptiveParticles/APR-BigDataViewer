@@ -10,7 +10,7 @@ import bdv.spimdata.SequenceDescriptionMinimal;
 import bdv.spimdata.SpimDataMinimal;
 import bdv.util.Bdv;
 import bdv.util.BdvFunctions;
-import mosaic.JavaAPR;
+import adaptiveparticles.apr.AprBasicOps;
 import mpicbg.spim.data.generic.sequence.BasicViewSetup;
 import mpicbg.spim.data.registration.ViewRegistration;
 import mpicbg.spim.data.registration.ViewRegistrations;
@@ -40,7 +40,7 @@ public class AprViewer {
         }
 
         // ------------ Load APR ---------------------------------
-		final JavaAPR apr = new JavaAPR();
+		final AprBasicOps apr = new AprBasicOps();
 		System.out.println( "Loading [" + inputFileName + "]" );
 		apr.read( inputFileName );
 		System.out.println( "Loaded image size (w/h/d): " + apr.width() + "/" + apr.height() + "/" + apr.depth() );
